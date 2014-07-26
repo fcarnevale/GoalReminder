@@ -13,7 +13,7 @@ class Goal < ActiveRecord::Base
     goal_string = goals.any? ? "Active Goals:\n" : "You have no active goals."
 
     goals.each_with_index do |goal, index|
-      goal_string += "#{index + 1}. #{goal.content}"
+      goal_string += "#{index + 1}. #{goal.content}\n"
     end
 
     goal_string
