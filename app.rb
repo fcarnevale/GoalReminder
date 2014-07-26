@@ -10,7 +10,7 @@ get '/gitterdone' do
   twiml = Twilio::TwiML::Response.new do |r|
     phone_number = params[:From]
     message = params[:Body]
-    user = IncomingSMS.find_or_create_user(phone_number)
+    user = IncomingSMS.find_or_create_user(phone_number) unless phone_number.blank?
 
     r.Message IncomingSMS.handle_message(user, message) if message
   end
