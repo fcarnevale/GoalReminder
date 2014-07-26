@@ -12,7 +12,7 @@ get '/gitterdone' do
     message = params[:Body]
     user = IncomingSMS.find_or_create_user(phone_number)
 
-    r.Message IncomingSMS.handle_message(message) if message
+    r.Message IncomingSMS.handle_message(user, message) if message
   end
   twiml.text
 end
