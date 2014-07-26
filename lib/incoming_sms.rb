@@ -5,7 +5,7 @@ class IncomingSMS
 
   class << self  
     def find_or_create_user(phone_number)
-      user = User.find_or_create_by(mobile_number: phone_number)
+      user = User.find_or_create_by(mobile_phone: phone_number)
       user
     end
 
