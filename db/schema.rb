@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20140726193955) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",     default: false
+    t.boolean  "active"
   end
 
   create_table "users", force: true do |t|
