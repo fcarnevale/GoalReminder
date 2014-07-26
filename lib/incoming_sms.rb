@@ -1,4 +1,4 @@
-require '../models/user'
+require File.expand_path('../../models/user', __FILE__)
 
 class IncomingSMS
   ALLOWABLE_USER_METHODS = [:help]
