@@ -4,7 +4,7 @@ x Find or create a user - parse the params[:From] to get the number - if it alre
 
 x Add goal model - user has many goals (description, is_active, timestamps)
 
-- Write script to text users their goals for that week - send separate texts for each goal
+x Write script to text users their goals for that week - send separate texts for each goal
 
 x use ActiveRecord 
 
