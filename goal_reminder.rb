@@ -26,7 +26,7 @@ begin
     message = "Goal reminder: #{goal.content}"
     @account.messages.create(
       :from => @from, 
-      :to => goal.user.mobile_phone,
+      :to => goal.user_mobile_phone,
       :body => message
     )
 
@@ -36,7 +36,7 @@ begin
 
       @account.messages.create(
         :from => @from, 
-        :to => goal.user.mobile_phone,
+        :to => goal.user_mobile_phone,
         :body => 'Remember to set your new goal(s) for next week!'
       )
     end

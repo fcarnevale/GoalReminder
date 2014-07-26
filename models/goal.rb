@@ -7,4 +7,8 @@ class Goal < ActiveRecord::Base
   def self.add_goal(user, content)
     user.goals.create(content: content, active: true)
   end
+
+  def user_mobile_phone
+    user.mobile_phone
+  end
 end
