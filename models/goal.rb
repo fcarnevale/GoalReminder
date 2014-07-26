@@ -1,3 +1,5 @@
+require 'active_record'
+
 class Goal < ActiveRecord::Base
   belongs_to :user
 
