@@ -2,10 +2,13 @@ require 'active_record'
 
 class Goal < ActiveRecord::Base
   belongs_to :user
-  # attr_accessor :active
+  attr_accessor :active
 
   def self.add_goal(user, content)
-    user.goals.create(content: content, active: true)
+    goal = user.goals.create(content: content, active: true)
+    
+    goal.active = true
+    goal.save
   end
 
   def self.active_goals_for(user)
