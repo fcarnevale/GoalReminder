@@ -24,7 +24,7 @@ Goal.where(active: true).find_each do |goal|
   message = "Goal reminder: #{goal.content}"
   @account.messages.create(
     :from => @from, 
-    :to => '+16094740747', 
+    :to => goal.user.mobile_phone,
     :body => message
   )
 end
