@@ -12,7 +12,7 @@ class IncomingSMS
     def handle_message(message)
       message = message.to_s # probably unnecessary to convert to string, but I'm being paranoid
     
-      user_command = message.split.shift.downcase
+      user_command = message.split.shift.downcase.to_sym
       content = message.split
       content.shift
       content = content.join(' ')
