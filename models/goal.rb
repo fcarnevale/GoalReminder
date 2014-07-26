@@ -12,7 +12,7 @@ class Goal < ActiveRecord::Base
   end
 
   def self.active_goals_for(user)
-    goals = user.goals.where(active: true)
+    goals = user.active_goals
     goal_string = goals.any? ? "Active Goals:\n" : "You have no active goals."
 
     goals.each_with_index do |goal, index|
