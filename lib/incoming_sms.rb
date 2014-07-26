@@ -29,6 +29,7 @@ class IncomingSMS
       return 'Please enter a goal!' if content.blank?
 
       Goal.add_goal(user, content)
+      
       "#{content[0..15]}... added as a goal!"
     end
   end
