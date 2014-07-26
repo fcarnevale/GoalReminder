@@ -8,6 +8,8 @@ x Write script to text users their goals for that week - send separate texts for
 
 x use ActiveRecord 
 
+- mark goals complete (add complete boolean column to goals table, default false. add completed - if content is blank, give instructions and print the goals with numbers, otherwise try to parse the numbers and mark them complete - i.e. completed 2 should mark only 2 complete, completed all should mark all complete)
+
 - send person a link of their current and/or all goals (simple html view)
 
 - root url has feed of 100 most recent goals - all public by default?
