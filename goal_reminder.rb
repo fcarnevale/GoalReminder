@@ -18,6 +18,7 @@ begin
   @account_sid = ENV['TWILIO_SID']
   @auth_token = ENV['TWILIO_AUTH_TOKEN'] 
   @from = ENV['TWILIO_PHONE_NUMBER']
+  @google_voice_number = ENV['GOOGLE_VOICE_NUMBER']
 
   @client = Twilio::REST::Client.new(@account_sid, @auth_token)
   @account = @client.account 
@@ -44,13 +45,13 @@ begin
 rescue Exception => e
   @account.messages.create(
     :from => @from, 
-    :to => @from,
+    :to => @google_voice_number,
     :body => "Error running goal reminder script: #{e}."
   )
 ensure
   @account.messages.create(
     :from => @from, 
-    :to => @from,
+    :to => @google_voice_number,
     :body => "Finished running goal reminder script."
   )
 end
