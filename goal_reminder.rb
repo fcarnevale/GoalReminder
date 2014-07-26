@@ -23,23 +23,28 @@ begin
   @client = Twilio::REST::Client.new(@account_sid, @auth_token)
   @account = @client.account 
 
-  Goal.where(active: true).find_each do |goal|
-    message = "Goal reminder: #{goal.content}"
-    @account.messages.create(
-      :from => @from, 
-      :to => goal.user_mobile_phone,
-      :body => message
-    )
-
-    if Date.today.friday?
-      goal.active = false
-      goal.save
+  User.find_each do |user|
+    active_goals_string = Goal.active_goals_for(user)
+    
+    unless active_goals_string.blank?
+      message = "Daily Goal Reminder\n"
+      message += active_goals_string
 
       @account.messages.create(
         :from => @from, 
-        :to => goal.user_mobile_phone,
-        :body => 'Remember to set your new goal(s) for next week!'
+        :to => user.mobile_phone,
+        :body => message
       )
+
+      if Date.today.friday?
+        Goal.deactivate_goals_for(user)
+
+        @account.messages.create(
+          :from => @from, 
+          :to => user.mobile_phone,
+          :body => 'Remember to set your new goal(s) for next week!'
+        )
+      end
     end
   end
 rescue Exception => e

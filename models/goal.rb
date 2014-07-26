@@ -22,6 +22,13 @@ class Goal < ActiveRecord::Base
     goal_string
   end
 
+  def self.deactivate_goals_for(user)
+    user.active_goals.each do |goal|
+      goal.active = false
+      goal.save
+    end
+  end
+
   def user_mobile_phone
     user.mobile_phone
   end
