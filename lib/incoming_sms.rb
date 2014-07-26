@@ -1,7 +1,6 @@
 require File.expand_path('../../models/user', __FILE__)
 
 class IncomingSMS
-  ALLOWABLE_USER_METHODS = [:how]
 
   class << self  
     def find_or_create_user(phone_number)
@@ -20,13 +19,10 @@ class IncomingSMS
       if ALLOWABLE_USER_METHODS.include?(user_command)
         self.send(user_command, content)
       else
-        "'How' and 'Goal' are the only valid commands"
+        "Text your goals for the week, one by one, like so 'Goal yourgoalhere'"
       end
     end
 
-    def how(content)
-      #fixme: this is ugly passing in something that isn't used
-      "Text your goals for the week, one by one, like so 'Goal yourgoalhere'"
     end
   end
 end
