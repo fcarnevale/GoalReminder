@@ -1,6 +1,7 @@
 require './models/user'
 require './models/goal'
 require 'twilio-ruby'
+require 'date'
 
 begin
   db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/goal_reminder_development')
@@ -28,6 +29,17 @@ begin
       :to => goal.user.mobile_phone,
       :body => message
     )
+
+    if Date.today.friday?
+      goal.active = false
+      goal.save
+
+      @account.messages.create(
+        :from => @from, 
+        :to => goal.user.mobile_phone,
+        :body => 'Remember to set your new goal(s) for next week!'
+      )
+    end
   end
 rescue Exception => e
   @account.messages.create(
