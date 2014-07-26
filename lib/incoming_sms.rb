@@ -25,7 +25,7 @@ class IncomingSMS
     end
 
     def help!
-      "Text your goals for the week, one by one, like so 'Goal yourgoalhere'"
+      return "Text your goals for the week, one by one, like so 'Goal yourgoalhere'"
     end
   end
 end
