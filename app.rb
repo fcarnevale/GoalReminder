@@ -4,6 +4,7 @@ require './config/environments'
 require './models/user'
 require 'twilio-ruby'
  
+require 'pry'
 
 get '/gitterdone' do
   twiml = Twilio::TwiML::Response.new do |r|
