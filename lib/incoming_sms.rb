@@ -1,7 +1,7 @@
 require File.expand_path('../../models/user', __FILE__)
 
 class IncomingSMS
-  ALLOWABLE_USER_METHODS = [:help!, :test]
+  ALLOWABLE_USER_METHODS = [:howto]
 
   class << self  
     def find_or_create_user(phone_number)
@@ -20,16 +20,12 @@ class IncomingSMS
       if ALLOWABLE_USER_METHODS.include?(user_command)
         self.send(user_command, content)
       else
-        "'Help!' and 'Goal' are the only valid commands"
+        "'Howto' and 'Goal' are the only valid commands"
       end
     end
 
-    def help!
+    def howto
       "Text your goals for the week, one by one, like so 'Goal yourgoalhere'"
-    end
-
-    def test(content)
-      "Testing metaprogramming. Your message: #{content}."
     end
   end
 end
