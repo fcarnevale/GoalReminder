@@ -5,7 +5,7 @@ class Goal < ActiveRecord::Base
   attr_accessor :active
 
   def self.add_goal(user, content)
-    goal = user.goals.create(content: content, active: true)
+    goal = user.goals.create(content: content)
     
     goal.active = true
     goal.save
