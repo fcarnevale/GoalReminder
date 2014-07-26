@@ -1,10 +1,14 @@
 - SMS your goals for the week, prefaced with 'GOAL:'
 
-- Find or create a user - parse the params[:From] to get the number - if it already exists, attach the goal to that user's goals, if it doesn't create a new one, and attach the new goal
+x Find or create a user - parse the params[:From] to get the number - if it already exists, attach the goal to that user's goals, if it doesn't create a new one, and attach the new goal
 
 - Add goal model - user has many goals (description, is_active, timestamps)
 
 - Write script to text users their goals for that week - send separate texts for each goal
 
 x use ActiveRecord 
+
+- send person a link of their current and/or all goals (simple html view)
+
+- root url has feed of 100 most recent goals - all public by default?
 
