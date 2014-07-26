@@ -8,6 +8,17 @@ class Goal < ActiveRecord::Base
     user.goals.create(content: content, active: true)
   end
 
+  def self.active_goals_for(user)
+    goals = user.goals.where(active: true)
+    goal_string = goals.any? ? "Active Goals:\n" : "You have no active goals."
+
+    goals.each_with_index do |goal, index|
+      goal_string += "#{index + 1}. #{goal.content}"
+    end
+
+    goal_string
+  end
+
   def user_mobile_phone
     user.mobile_phone
   end

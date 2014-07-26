@@ -2,7 +2,7 @@ require File.expand_path('../../models/user', __FILE__)
 require File.expand_path('../../models/goal', __FILE__)
 
 class IncomingSMS
-  ALLOWABLE_USER_METHODS = [:goal]
+  ALLOWABLE_USER_METHODS = [:goal, :goals]
 
   class << self  
     def find_or_create_user(phone_number)
@@ -31,6 +31,12 @@ class IncomingSMS
       Goal.add_goal(user, content)
       
       "#{content[0..15]}... added as a goal!"
+    end
+
+    def goals(user, content)
+      #fixme: figure out how to avoid having to pass content in this case
+      
+      Goal.active_goals_for(user)
     end
   end
 end
