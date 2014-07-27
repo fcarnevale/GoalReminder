@@ -4,7 +4,7 @@ class Goal < ActiveRecord::Base
   belongs_to :user
 
   def self.add_goal(user, content)
-    goal = user.goals.create(content: content, active: true)
+    user.goals.create(content: content, active: true)
   end
 
   def self.active_goals_for(user)
