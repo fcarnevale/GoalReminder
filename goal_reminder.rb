@@ -27,6 +27,7 @@ begin
 
   User.find_each do |user|
     if user.active_goals
+    @active_goals = user.active_goals
       today = Date.today
       today -= (4/24.0) #correct for UTC time on heroku server
  
@@ -34,6 +35,7 @@ begin
 
       if today.saturday?
         message += "\nRemember to set your goal(s) for next week!\n"
+        message += "The active goals above have been archived." if @active_goals.any?
 
         @account.messages.create(
           :from => @from, 
