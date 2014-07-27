@@ -2,7 +2,9 @@ require File.expand_path('../../models/user', __FILE__)
 require File.expand_path('../../models/goal', __FILE__)
 
 class IncomingSMS
-  ALLOWABLE_USER_METHODS = [:goal, :goals, :completed, :completedgoals]
+  ALLOWABLE_USER_METHODS = [
+    :goal, :goals, :completed, :completedgoals, :idid
+  ]
 
   class << self  
     def find_or_create_user(phone_number)
@@ -24,6 +26,20 @@ class IncomingSMS
       else
         "Text your goals for the week, one by one, like so 'Goal yourgoalhere'. Valid commands: goal, goals, & completed."
       end
+    end
+
+    def idid(user, content)
+      return user.recent_activities_summary if content.blank?
+      
+      #fixme: duplication with goal method - use yield/blocks for error handling
+      begin
+        Activity.add_activity(user, content)
+      rescue Exception => e
+        puts "///////////////////// Error saving activity (#{e}) /////////////////////"
+        return "Error saving activity."
+      end
+
+      "#{content[0..50]}... added as an activity!"
     end
 
     def goal(user, content)

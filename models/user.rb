@@ -10,4 +10,16 @@ class User < ActiveRecord::Base
   def active_goals
     goals.where(active: true)
   end
+
+  def recent_activities_summary
+    recent_activities = activities.order(created_at: :desc).limit(3)
+    activities_string = recent_activities.any? ? "Recent activities:\n" : "You have no recent activities"
+  
+    recent_activities.each do |activity|
+      activities_string += "#{activity.content}, "
+    end
+    activities_string += "."
+
+    activities_string        
+  end
 end
