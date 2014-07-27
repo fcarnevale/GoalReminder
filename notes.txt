@@ -28,4 +28,4 @@ x add current completed goals (grab completed and cweek == cweek || cweek == cwe
 
 - add basic mood tracking with randomly sent reminders during the day
 
-- add some social accountability/motivation (get sms when a task gets completed - context is important, who it is that completed it is important, what it is that they completed aka is it related to my interests)
+- add some social accountability/motivation (get sms when a activity gets completed - context is important, who it is that completed it is important, what it is that they completed aka is it related to my interests)

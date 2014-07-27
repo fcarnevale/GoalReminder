@@ -1,6 +1,6 @@
 require File.expand_path('../../models/user', __FILE__)
 require File.expand_path('../../models/goal', __FILE__)
-require File.expand_path('../../models/task', __FILE__)
+require File.expand_path('../../models/activity', __FILE__)
 
 class IncomingSMS
   ALLOWABLE_USER_METHODS = [
@@ -30,17 +30,17 @@ class IncomingSMS
     end
 
     def idid(user, content)
-      return user.recent_tasks_summary if content.blank?
+      return user.recent_activities_summary if content.blank?
       
       #fixme: duplication with goal method - use yield/blocks for error handling
       begin
-        Task.add_task(user, content)
+        Activity.add_activity(user, content)
       rescue Exception => e
-        puts "///////////////////// Error saving task (#{e}) /////////////////////"
-        return "Error saving task."
+        puts "///////////////////// Error saving activity (#{e}) /////////////////////"
+        return "Error saving activity."
       end
 
-      "#{content[0..50]}... added as a task!"
+      "#{content[0..50]}... added as an activity!"
     end
 
     def goal(user, content)

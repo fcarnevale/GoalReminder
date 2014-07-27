@@ -1,6 +1,6 @@
 class CreateActivity < ActiveRecord::Migration
   def change
-    create_table :tasks do |t|
+    create_table :activities do |t|
       t.string :content
       t.integer :user_id
 
