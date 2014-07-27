@@ -22,7 +22,7 @@ class IncomingSMS
       if ALLOWABLE_USER_METHODS.include?(user_command)
         self.send(user_command, user, content)
       else
-        "Text your goals for the week, one by one, like so 'Goal yourgoalhere'"
+        "Text your goals for the week, one by one, like so 'Goal yourgoalhere'. Valid commands: goal, goals, & completed."
       end
     end
 
