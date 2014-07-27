@@ -2,7 +2,7 @@ require File.expand_path('../../models/user', __FILE__)
 require File.expand_path('../../models/goal', __FILE__)
 
 class IncomingSMS
-  ALLOWABLE_USER_METHODS = [:goal, :goals, :completed]
+  ALLOWABLE_USER_METHODS = [:goal, :goals, :completed, :completedgoals]
 
   class << self  
     def find_or_create_user(phone_number)
@@ -76,6 +76,12 @@ class IncomingSMS
           summary_string
         end
       end
+    end
+
+    def completedgoals(user, content)
+      #fixme: for now, simply return 3 most recently completed goals
+
+      Goal.recently_completed_by(user) 
     end
   end
 end
