@@ -12,7 +12,7 @@ x mark goals complete (add complete boolean column to goals table, default false
 
 x add current completed goals (grab completed and cweek == cweek || cweek == cweek - 1 && day == saturday || sunday)
 
-- add 'what'd you do this weekend'ish functionality. text in things as you do them with idid xyz. message 'whatidid' and sends back last 3 things you did 
+x add 'what'd you do this weekend'ish functionality. text in things as you do them with idid xyz. message 'whatidid' and sends back last 3 things you did 
 
 - add security
 
