@@ -62,15 +62,6 @@ class IncomingSMS
             #fixme: super ugly - letters converted to int = 0 though
             if active_goals[index] && index >= 0
               active_goals[index].complete!
-              puts
-              puts
-              puts "//////////////////////////////////////"
-              puts "//////////////////////////////////////"
-              puts active_goals[index].content
-              puts "//////////////////////////////////////"
-              puts "//////////////////////////////////////"
-              puts
-              puts
               summary_string += "Goal #{id} marked complete! "
             else
               summary_string += "Goal #{id} is invalid. "
