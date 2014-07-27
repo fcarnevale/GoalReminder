@@ -29,17 +29,17 @@ class IncomingSMS
     end
 
     def idid(user, content)
-      return user.recent_activities_summary if content.blank?
+      return user.recent_tasks_summary if content.blank?
       
       #fixme: duplication with goal method - use yield/blocks for error handling
       begin
-        Activity.add_activity(user, content)
+        Task.add_task(user, content)
       rescue Exception => e
-        puts "///////////////////// Error saving activity (#{e}) /////////////////////"
-        return "Error saving activity."
+        puts "///////////////////// Error saving task (#{e}) /////////////////////"
+        return "Error saving task."
       end
 
-      "#{content[0..50]}... added as an activity!"
+      "#{content[0..50]}... added as a task!"
     end
 
     def goal(user, content)

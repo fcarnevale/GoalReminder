@@ -1,9 +1,9 @@
 require 'active_record'
 
-class Activity < ActiveRecord::Base
+class Task < ActiveRecord::Base
   belongs_to :user
 
-  def self.add_activity(user, content)
-    user.activities.create(content: content)
+  def self.add_task(user, content)
+    user.tasks.create(content: content)
   end
 end
