@@ -46,7 +46,7 @@ begin
 
         Goal.deactivate_goals_for(user)
       else
-        message += "\nComplete finished goals before they get archived as incomplete!\n"
+        message += "\nComplete finished goals before they get archived as incomplete!"
         
         @account.messages.create(
           :from => @from, 
