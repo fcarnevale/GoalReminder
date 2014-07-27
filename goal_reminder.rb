@@ -23,6 +23,8 @@ begin
   @client = Twilio::REST::Client.new(@account_sid, @auth_token)
   @account = @client.account 
 
+  reminder_sms_count = 0
+
   User.find_each do |user|
     active_goals_string = Goal.active_goals_for(user)
     
@@ -35,6 +37,8 @@ begin
         :to => user.mobile_phone,
         :body => message
       )
+
+      reminder_sms_count += 1
 
       if Date.today.friday?
         Goal.deactivate_goals_for(user)
@@ -51,13 +55,13 @@ rescue Exception => e
   @account.messages.create(
     :from => @from, 
     :to => @google_voice_number,
-    :body => "Error running goal reminder script: #{e}."
+    :body => "Error running goal reminder script: #{e}"
   )
 ensure
   @account.messages.create(
     :from => @from, 
     :to => @google_voice_number,
-    :body => "Finished running goal reminder script."
+    :body => "Finished running goal reminder script.\n# of reminders sent: #{reminder_sms_count}."
   )
 end
   
