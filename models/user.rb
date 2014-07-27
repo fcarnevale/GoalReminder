@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     activities_string = recent_activities.empty? ? "You have no recent activities." : "Recent activities:\n"
   
     recent_activities.each_with_index do |activity, index|
-      activities_string += "#{index + 1}. #{activity.content}\n"
+      activities_string += "#{index + 1}. #{activity.content.capitalize}\n"
     end
 
     activities_string        
