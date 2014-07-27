@@ -26,8 +26,9 @@ begin
   reminder_sms_count = 0
 
   User.find_each do |user|
-    if user.active_goals
     @active_goals = user.active_goals
+
+    if @active_goals.any?
       today = Date.today
       today -= (4/24.0) #correct for UTC time on heroku server
  
