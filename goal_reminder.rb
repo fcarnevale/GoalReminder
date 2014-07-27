@@ -40,7 +40,10 @@ begin
 
       reminder_sms_count += 1
 
-      if Date.today.friday?
+      today = Date.today
+      today -= (4/24.0) #correct for UTC time on heroku server
+
+      if today.saturday?
         Goal.deactivate_goals_for(user)
 
         @account.messages.create(
