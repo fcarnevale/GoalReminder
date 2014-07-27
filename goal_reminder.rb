@@ -33,7 +33,7 @@ begin
       message = Goal.active_goals_for(user)
 
       if today.saturday?
-        message += "Remember to set your goal(s) for next week!\n"
+        message += "\nRemember to set your goal(s) for next week!\n"
 
         @account.messages.create(
           :from => @from, 
@@ -43,7 +43,7 @@ begin
 
         Goal.deactivate_goals_for(user)
       else
-        message += "Complete finished goals before they get archived as incomplete!\n"
+        message += "\nComplete finished goals before they get archived as incomplete!\n"
         
         @account.messages.create(
           :from => @from, 
