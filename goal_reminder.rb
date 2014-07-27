@@ -31,7 +31,7 @@ begin
       today -= (4/24.0) #correct for UTC time on heroku server
 
       active_goals_string = Goal.active_goals_for(user)
-      message = "Daily Goal Reminder\n"
+      message = "Complete finished goals before they get archived as incomplete!"
       message += active_goals_string
 
       if today.saturday?
