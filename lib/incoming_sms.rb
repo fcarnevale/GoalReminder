@@ -28,8 +28,13 @@ class IncomingSMS
 
     def goal(user, content)
       return 'Please enter a goal!' if content.blank?
-
-      Goal.add_goal(user, content)
+      
+      begin
+        Goal.add_goal(user, content)
+      rescue Exception => e
+        puts "///////////////////// Error saving goal (#{e}) /////////////////////"
+        return "Error saving goal."
+      end
 
       "#{content[0..50]}... added as a goal!"
     end
