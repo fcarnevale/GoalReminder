@@ -54,6 +54,7 @@ class IncomingSMS
           instructions_string
         else
           goal_ids = content.split(' ')
+          goal_ids.map! { |id| id.to_i  }
           summary_string = "Completed summary: "
 
           goal_ids.each do |id|
