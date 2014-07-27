@@ -26,32 +26,39 @@ begin
   reminder_sms_count = 0
 
   User.find_each do |user|
-    active_goals_string = Goal.active_goals_for(user)
-    
-    unless active_goals_string.blank?
-      message = "Daily Goal Reminder\n"
-      message += active_goals_string
-
-      @account.messages.create(
-        :from => @from, 
-        :to => user.mobile_phone,
-        :body => message
-      )
-
-      reminder_sms_count += 1
-
+    if user.active_goals
       today = Date.today
       today -= (4/24.0) #correct for UTC time on heroku server
 
+      active_goals_string = Goal.active_goals_for(user)
+      message = "Daily Goal Reminder\n"
+      message += active_goals_string
+
       if today.saturday?
-        Goal.deactivate_goals_for(user)
+        message += 'Remember to set your goal(s) for next week!'
 
         @account.messages.create(
           :from => @from, 
           :to => user.mobile_phone,
-          :body => 'Remember to set your new goal(s) for next week!'
+          :body => message
+        )
+
+        Goal.deactivate_goals_for(user)
+      else
+        @account.messages.create(
+          :from => @from, 
+          :to => user.mobile_phone,
+          :body => message
         )
       end
+
+      reminder_sms_count += 1
+    else
+      @account.messages.create(
+        :from => @from, 
+        :to => user.mobile_phone,
+        :body => 'Remember to set your goal(s) for next week!'
+      )
     end
   end
 rescue Exception => e
