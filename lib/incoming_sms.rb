@@ -29,6 +29,7 @@ class IncomingSMS
     end
 
     def idid(user, content)
+      return "user: #{user}, content: #{content}"
       return user.recent_tasks_summary if content.blank?
       
       #fixme: duplication with goal method - use yield/blocks for error handling
