@@ -13,12 +13,11 @@ class User < ActiveRecord::Base
 
   def recent_activities_summary
     recent_activities = activities.order(created_at: :desc).limit(3)
-    activities_string = recent_activities.any? ? "Recent activities:\n" : "You have no recent activities"
+    activities_string = recent_activities.empty? ? "You have no recent activities." : ""
   
     recent_activities.each do |activity|
-      activities_string += "#{activity.content}, "
+      activities_string += "#{activity.content}.\n"
     end
-    activities_string += "."
 
     activities_string        
   end
