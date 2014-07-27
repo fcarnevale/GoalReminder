@@ -54,13 +54,13 @@ class IncomingSMS
           instructions_string
         else
           goal_ids = content.split(' ')
-          goal_ids.map! { |id| id.to_i  }
           summary_string = "Completed summary: "
 
           goal_ids.each do |id|
-            index = id - 1
+            index = id.to_i - 1
 
-            if active_goals[index]
+            #fixme: super ugly - letters converted to int = 0 though
+            if active_goals[index] && index >= 0
               active_goals[index].complete!
               summary_string += "Goal #{id} marked complete! "
             else
