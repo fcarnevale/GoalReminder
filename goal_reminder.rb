@@ -34,7 +34,7 @@ begin
  
       message = Goal.active_goals_for(user)
 
-      if today.saturday?
+      if today.friday?
         message += "\nRemember to set your goal(s) for next week! "
         message += "The active goals above have been archived." if @active_goals.any?
 
