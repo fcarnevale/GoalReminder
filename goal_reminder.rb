@@ -29,13 +29,11 @@ begin
     if user.active_goals
       today = Date.today
       today -= (4/24.0) #correct for UTC time on heroku server
-
-      active_goals_string = Goal.active_goals_for(user)
-      message = "Complete finished goals before they get archived as incomplete!"
-      message += active_goals_string
+ 
+      message = Goal.active_goals_for(user)
 
       if today.saturday?
-        message += 'Remember to set your goal(s) for next week!'
+        message += "Remember to set your goal(s) for next week!\n"
 
         @account.messages.create(
           :from => @from, 
@@ -45,6 +43,8 @@ begin
 
         Goal.deactivate_goals_for(user)
       else
+        message += "Complete finished goals before they get archived as incomplete!\n"
+        
         @account.messages.create(
           :from => @from, 
           :to => user.mobile_phone,
