@@ -2,7 +2,7 @@ require File.expand_path('../../models/user', __FILE__)
 require File.expand_path('../../models/goal', __FILE__)
 
 class IncomingSMS
-  ALLOWABLE_USER_METHODS = [:goal, :goals]
+  ALLOWABLE_USER_METHODS = [:goal, :goals, :completed]
 
   class << self  
     def find_or_create_user(phone_number)
@@ -37,6 +37,39 @@ class IncomingSMS
     def goals(user, content)
       #fixme: figure out how to avoid having to pass content in this case
       Goal.active_goals_for(user)
+    end
+
+    def completed(user, content)
+      active_goals = user.active_goals
+
+      if active_goals.empty?
+        "You have no active goals to complete."
+      else
+        active_goals_string = Goal.active_goals_for(user)
+
+        if content.blank?
+          instructions_string = "Reply with 'Completed goal# goal# etc...'\n"
+          instructions_string += active_goals_string
+          
+          instructions_string
+        else
+          goal_ids = content.split(' ')
+          summary_string = "Completed summary: "
+
+          goal_ids.each do |id|
+            index = id - 1
+
+            if active_goals[index]
+              active_goals[index].complete!
+              summary_string += "Goal #{id} marked complete! "
+            else
+              summary_string += "Goal #{id} is invalid. "
+            end
+          end
+
+          summary_string
+        end
+      end
     end
   end
 end
