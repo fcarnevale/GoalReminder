@@ -27,6 +27,7 @@ class Goal < ActiveRecord::Base
 
   def complete!
     completed = true
+    active = false
     save
   end
 
