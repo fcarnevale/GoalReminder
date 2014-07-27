@@ -26,9 +26,9 @@ class Goal < ActiveRecord::Base
   end
 
   def complete!
-    completed = true
-    active = false
-    save
+    self.completed = true
+    self.active = false
+    self.save
   end
 
   def user_mobile_phone
