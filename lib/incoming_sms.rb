@@ -17,6 +17,7 @@ class IncomingSMS
       content = message.split
       content.shift
       content = content.join(' ')
+      content.strip!
 
       if ALLOWABLE_USER_METHODS.include?(user_command)
         self.send(user_command, user, content)
