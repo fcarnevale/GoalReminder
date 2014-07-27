@@ -36,7 +36,6 @@ class IncomingSMS
 
     def goals(user, content)
       #fixme: figure out how to avoid having to pass content in this case
-      
       Goal.active_goals_for(user)
     end
   end
