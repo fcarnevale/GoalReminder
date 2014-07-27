@@ -4,7 +4,7 @@ require File.expand_path('../../models/activity', __FILE__)
 
 class IncomingSMS
   ALLOWABLE_USER_METHODS = [
-    :goal, :goals, :completed, :completedgoals, :idid
+    :goal, :goals, :completed, :completedgoals, :i
   ]
 
   class << self  
@@ -29,7 +29,7 @@ class IncomingSMS
       end
     end
 
-    def idid(user, content)
+    def i(user, content)
       return user.recent_activities_summary if content.blank?
       
       #fixme: duplication with goal method - use yield/blocks for error handling
