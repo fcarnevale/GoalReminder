@@ -10,7 +10,7 @@ x use ActiveRecord
 
 x mark goals complete (add complete boolean column to goals table, default false. add completed - if content is blank, give instructions and print the goals with numbers, otherwise try to parse the numbers and mark them complete - i.e. completed 2 should mark only 2 complete)
 
-- add current completed goals (grab completed and cweek == cweek || cweek == cweek - 1 && day == saturday || sunday)
+x add current completed goals (grab completed and cweek == cweek || cweek == cweek - 1 && day == saturday || sunday)
 
 - add 'what'd you do this weekend'ish functionality. text in things as you do them with idid xyz. message 'whatidid' and sends back last 3 things you did 
 
