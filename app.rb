@@ -25,13 +25,25 @@ end
 
 get '/testingauth' do
   # binding.pry
-  # request_uri = request.env['REQUEST_URI']
-  request_uri = request.env['REQUEST_URI'].gsub(/\?.*\z/, '')
+  # request_uri = request.env['REQUEST_URI'].gsub(/\?.*\z/, '')
+  request_uri = request.env['REQUEST_URI']
   hashed_request = Digest::HMAC.hexdigest(request_uri, ENV['TWILIO_AUTH_TOKEN'], Digest::SHA1)
   encoded_request = Base64.encode64(hashed_request).chomp
   twilio_signature = request.env['HTTP_X_TWILIO_SIGNATURE']
   authorized = encoded_request == twilio_signature
   debug_text = "request_uri: #{request_uri}, encoded_request: #{encoded_request}, header: #{twilio_signature}"
+
+  if authorized
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Message "Authorized request! #{debug_text}"
+    end
+  else
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Message "Unauthorized request! #{debug_text}"
+    end
+  end
+  
+  twiml.text  
 
   # # First, instantiate a RequestValidator object with your account's AuthToken.
   # validator = Twilio::Util::RequestValidator.new(ENV['TWILIO_AUTH_TOKEN'])
@@ -52,16 +64,4 @@ get '/testingauth' do
 
   # # Finally, call the validator's #validate method.
   # authorized = validator.validate uri, params, signature #=> true if the request is from Twilio
-
-  if authorized
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Message "Authorized request! #{debug_text}"
-    end
-  else
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Message "Unauthorized request! #{debug_text}"
-    end
-  end
-  
-  twiml.text  
 end
