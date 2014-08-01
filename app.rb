@@ -38,7 +38,7 @@ get '/testingauth' do
   # sinatra, and something similar should work in any rack-based environment.
 
   # Build the URI for this request, including query string params if any.
-  uri = request.env['REQUEST_URI']
+  uri = request.env['REQUEST_URI'].gsub(/\?.*\z/, '')
 
   # Collect all parameters passed from Twilio.
   params = request.env['rack.request.query_hash']
