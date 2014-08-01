@@ -25,9 +25,10 @@ end
 
 get '/testingauth' do
   # binding.pry
-  request_uri = request.env['REQUEST_URI']
+  # request_uri = request.env['REQUEST_URI']
+  request_uri = request.env['REQUEST_URI'].gsub(/\?.*\z/, '')
   hashed_request = Digest::HMAC.hexdigest(request_uri, ENV['TWILIO_AUTH_TOKEN'], Digest::SHA1)
-  encoded_request = Base64.encode64(hashed_request)
+  encoded_request = Base64.encode64(hashed_request).chomp
   twilio_signature = request.env['HTTP_X_TWILIO_SIGNATURE']
   authorized = encoded_request == twilio_signature
   debug_text = "request_uri: #{request_uri}, encoded_request: #{encoded_request}, header: #{twilio_signature}"
