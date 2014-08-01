@@ -30,11 +30,11 @@ get '/testingauth' do
 
   if authorized
     twiml = Twilio::TwiML::Response.new do |r|
-      r.Message "Authorized request!"
+      r.Message "Authorized request! #{request.env['X-Twilio-Signature']}"
     end
   else
     twiml = Twilio::TwiML::Response.new do |r|
-      r.Message "Unauthorized request!"
+      r.Message "Unauthorized request! #{request.env['X-Twilio-Signature']}"
     end
   end
   
