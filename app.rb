@@ -23,6 +23,7 @@ get '/gitterdone' do
 end
 
 get '/testingauth' do
+  # binding.pry
   # request_uri = request.env['REQUEST_URI']
   # hashed_request = Digest::HMAC.hexdigest(request_uri, ENV['TWILIO_AUTH_TOKEN'], Digest::SHA1)
   # encoded_request = Base64.encode64(hashed_request)
@@ -37,15 +38,15 @@ get '/testingauth' do
   # sinatra, and something similar should work in any rack-based environment.
 
   # Build the URI for this request, including query string params if any.
-  uri = request.original_url
+  uri = request.env['REQUEST_URI']
 
   # Collect all parameters passed from Twilio.
-  params = env['rack.request.form_hash']
+  params = request.env['rack.request.query_hash']
   # If GET, use rack.request.query_hash instead:
   # params = env['rack.request.query_hash']
 
   # Grab the signature from the HTTP header.
-  signature = env['HTTP_X_TWILIO_SIGNATURE']
+  signature = request.env['HTTP_X_TWILIO_SIGNATURE']
 
   # Finally, call the validator's #validate method.
   authorized = validator.validate uri, params, signature #=> true if the request is from Twilio
