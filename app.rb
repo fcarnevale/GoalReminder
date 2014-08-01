@@ -5,6 +5,7 @@ require './models/user'
 require 'twilio-ruby'
 require './lib/incoming_sms'
 require 'pry'
+require 'digest/hmac'
 
 get '/gitterdone' do
   if params
@@ -19,4 +20,23 @@ get '/gitterdone' do
   else
     "Gitterdone!"
   end
+end
+
+get '/testingauth' do
+  request_uri = request.env['REQUEST_URI']
+  hashed_request = Digest::HMAC.hexdigest(request_uri, ENV['TWILIO_AUTH_TOKEN'], Digest::SHA1)
+  encoded_request = Base64.encode64(hashed_request)
+  authorized = encoded_request == request.env['X-Twilio-Signature']
+
+  if authorized
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Message "Authorized request!"
+    end
+  else
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Message "Unauthorized request!"
+    end
+  end
+  
+  twiml.text  
 end
