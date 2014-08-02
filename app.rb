@@ -5,7 +5,7 @@ require './models/user'
 require 'twilio-ruby'
 require './lib/incoming_sms'
 require 'pry'
-require 'digest/hmac'
+require 'openssl'
 require 'base64'
 
 get '/gitterdone' do
@@ -26,8 +26,12 @@ end
 get '/testingauth' do
   # binding.pry
   # request_uri = request.env['REQUEST_URI'].gsub(/\?.*\z/, '')
+
   request_uri = request.env['REQUEST_URI']
-  hashed_request = Digest::HMAC.hexdigest(request_uri, ENV['TWILIO_AUTH_TOKEN'], Digest::SHA1)
+  key = ENV['TWILIO_AUTH_TOKEN']
+  digest = OpenSSL::Digest.new('sha1')
+
+  hashed_request = OpenSSL::HMAC.digest(digest, key, request_uri)
   encoded_request = Base64.encode64(hashed_request).chomp
   twilio_signature = request.env['HTTP_X_TWILIO_SIGNATURE']
   authorized = encoded_request == twilio_signature
