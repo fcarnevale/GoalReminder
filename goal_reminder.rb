@@ -30,8 +30,6 @@ begin
 
     if @active_goals.any?
       today = Date.today
-      today -= (4/24.0) #correct for UTC time on heroku server
- 
       message = Goal.active_goals_for(user)
 
       if today.friday?
