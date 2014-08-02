@@ -16,7 +16,7 @@ x add 'what'd you do this weekend'ish functionality. text in things as you do th
 
 x add security
 
-- fix marking things inactive process (check for age of activity, not whether it's friday or not)
+x fix marking things inactive process
 
 - add memories functionality
 
