@@ -51,9 +51,9 @@ class IncomingSMS
       summary_string = "#{level} #{content[0..20]}... added as a mood entry!"
 
       if level < 5
-        summary_string += "\n#{Quote.inspiring}"
+        summary_string = Quote.inspiring
       elsif level > 8
-        summary_string += "\n#{Quote.calming}"
+        summary_string = Quote.calming
       end
          
       summary_string 
