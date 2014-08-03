@@ -5,7 +5,12 @@ require File.expand_path('../../models/mood', __FILE__)
 
 class IncomingSMS
   ALLOWABLE_USER_METHODS = [
-    :goal, :goals, :completed, :completedgoals, :i
+    :goal, 
+    :goals, 
+    :completed, 
+    :completedgoals, 
+    :i,
+    :moods
   ]
 
   ALLOWABLE_USER_MOODS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -43,6 +48,10 @@ class IncomingSMS
       end
 
       "#{level} #{content[0..50]}... added as a mood entry!"
+    end
+
+    def moods(user, num_days)
+      user.recent_moods_summary(num_days)
     end
 
     def i(user, content)

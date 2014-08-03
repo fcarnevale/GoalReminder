@@ -22,4 +22,16 @@ class User < ActiveRecord::Base
 
     activities_string        
   end
+
+  def recent_moods_summary(num_days)
+    recent_moods = moods.order(created_at: :desc).limit(3)
+    average_mood = Mood.average_for(self, num_days)
+    moods_string = recent_moods.empty? ? "You have no recent moods." : "Mood avg for #{num_days} day(s): #{average_mood}\nRecent moods:\n"
+  
+    recent_moods.each do |mood|
+      moods_string += "#{mood.level} #{mood.content}\n"
+    end
+
+    moods_string
+  end
 end
