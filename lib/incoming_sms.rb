@@ -42,7 +42,7 @@ class IncomingSMS
         return "Error saving mood entry."
       end
 
-      "#{content[0..50]}... added as a mood entry!"
+      "#{level} #{content[0..50]}... added as a mood entry!"
     end
 
     def i(user, content)
