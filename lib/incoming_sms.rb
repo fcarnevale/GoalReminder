@@ -2,6 +2,7 @@ require File.expand_path('../../models/user', __FILE__)
 require File.expand_path('../../models/goal', __FILE__)
 require File.expand_path('../../models/activity', __FILE__)
 require File.expand_path('../../models/mood', __FILE__)
+require File.expand_path('../../models/quote', __FILE__)
 
 class IncomingSMS
   ALLOWABLE_USER_METHODS = [
@@ -47,7 +48,15 @@ class IncomingSMS
         return "Error saving mood entry."
       end
 
-      "#{level} #{content[0..50]}... added as a mood entry!"
+      summary_string = "#{level} #{content[0..20]}... added as a mood entry!"
+
+      if level < 5
+        summary_string += "\n#{Quote.inspiring}"
+      elsif level > 8
+        summary_string += "\n#{Quote.calming}"
+      end
+         
+      summary_string 
     end
 
     def moods(user, num_days)

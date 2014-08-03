@@ -20,9 +20,9 @@ x fix marking things inactive process
 
 x add basic mood tracking 
 
-- create a 'moods' command to list the 5 most recent moods (their level and some of their checkin content), and average over last 7 days
+x create a 'moods' command to list the 3 most recent moods (their level and some of their checkin content), and average over last 7 days
 
-- add some kind of message for extreme moods (0 / 11, add to allowable moods)
+- add some kind of message for high and low moods
 
 - send a random reminder per day to enter mood
 
