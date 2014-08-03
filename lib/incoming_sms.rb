@@ -27,8 +27,8 @@ class IncomingSMS
 
       if ALLOWABLE_USER_METHODS.include?(user_command)
         self.send(user_command, user, content)
-      elsif ALLOWABLE_USER_MOODS.include?(user_command.to_i)
-        self.track_mood(user, user_command.to_i, content)
+      elsif ALLOWABLE_USER_MOODS.include?(user_command.to_s.to_i)
+        self.track_mood(user, user_command.to_s.to_i, content)
       else
         "Text your goals for the week, one by one, like so 'Goal yourgoalhere'. Valid commands: goal, goals, & completed."
       end
