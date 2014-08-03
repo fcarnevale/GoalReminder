@@ -22,7 +22,11 @@ x add basic mood tracking
 
 x create a 'moods' command to list the 3 most recent moods (their level and some of their checkin content), and average over last 7 days
 
-- add some kind of message for high and low moods
+x add some kind of message for high and low moods
+
+- think about adding an emergency contact for persistent low mood (i.e. if a checkin mood level is < 3, and average for last 3 days is < 4, send a text message to the emergency contact: "hi #{contact_name}, you should message your #{contact_relationship}. their mood has been extremely low lately. -lifetracker app")
+
+- think about how to protect against long incoming messages (to the app).i.e. the case of long mood checkins that were triggering two commands because the message was long and got broken up into two messages
 
 - send a random reminder per day to enter mood
 
