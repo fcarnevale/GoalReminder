@@ -1,11 +1,14 @@
 require File.expand_path('../../models/user', __FILE__)
 require File.expand_path('../../models/goal', __FILE__)
 require File.expand_path('../../models/activity', __FILE__)
+require File.expand_path('../../models/mood', __FILE__)
 
 class IncomingSMS
   ALLOWABLE_USER_METHODS = [
     :goal, :goals, :completed, :completedgoals, :i
   ]
+
+  ALLOWABLE_USER_MOODS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   class << self  
     def find_or_create_user(phone_number)
@@ -24,9 +27,22 @@ class IncomingSMS
 
       if ALLOWABLE_USER_METHODS.include?(user_command)
         self.send(user_command, user, content)
+      elsif ALLOWABLE_USER_MOODS.include?(user_command.to_i)
+        self.track_mood(user, user_command.to_i, content)
       else
         "Text your goals for the week, one by one, like so 'Goal yourgoalhere'. Valid commands: goal, goals, & completed."
       end
+    end
+
+    def track_mood(user, level, content)
+      begin
+        Mood.track(user, level, content)
+      rescue Exception => e
+        puts "///////////////////// Error saving mood entry (#{e}) /////////////////////"
+        return "Error saving mood entry."
+      end
+
+      "#{content[0..50]}... added as a mood entry!"
     end
 
     def i(user, content)
