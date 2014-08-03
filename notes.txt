@@ -18,7 +18,11 @@ x add security
 
 x fix marking things inactive process
 
-- add basic mood tracking with randomly sent reminders during the day
+x add basic mood tracking 
+
+- send a random reminder per day to enter mood
+
+- create a 'moods' command to list the 5 most recent moods (their level and some of their checkin content)
 
 - add memories functionality
 
