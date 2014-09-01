@@ -68,11 +68,11 @@ rescue Exception => e
     :to => @google_voice_number,
     :body => "Error running goal reminder script: #{e}"
   )
-ensure
-  @account.messages.create(
-    :from => @from, 
-    :to => @google_voice_number,
-    :body => "Finished running goal reminder script.\n# of reminders sent: #{reminder_sms_count}."
-  )
+# ensure
+#   @account.messages.create(
+#     :from => @from, 
+#     :to => @google_voice_number,
+#     :body => "Finished running goal reminder script.\n# of reminders sent: #{reminder_sms_count}."
+#   )
 end
   
